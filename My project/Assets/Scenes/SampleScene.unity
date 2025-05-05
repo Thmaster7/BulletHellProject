@@ -476,9 +476,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletResource: {fileID: 4140736094115830751, guid: a0eeb28bc722f4546b27e24aa8cdc279, type: 3}
   minRotation: 1
-  maxRotation: 180
+  maxRotation: 360
   numberOfBullets: 8
   isRandom: 0
+  spawnerType: 0
   cooldown: 0.3
   bulletSpeed: 5
   bulletVelocity: {x: 1, y: 0}

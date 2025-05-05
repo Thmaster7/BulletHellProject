@@ -8,6 +8,10 @@ public class BulletSpawner : MonoBehaviour
     public int numberOfBullets;
     public bool isRandom;
 
+    enum SpawnerType {Normal, Spin}
+
+    [SerializeField] private SpawnerType spawnerType;
+
     public float cooldown;
     float timer;
     public float bulletSpeed;
@@ -44,6 +48,7 @@ public class BulletSpawner : MonoBehaviour
         }
         return rotations;
     }
+    
     public float[] DistributedRotations()
     {
         for(int i = 0; i< numberOfBullets;i++)
@@ -62,6 +67,7 @@ public class BulletSpawner : MonoBehaviour
         {
             RandomRotations();
         }
+        
 
         GameObject[] spawnedBullets = new GameObject[numberOfBullets];
         for (int i = 0; i < numberOfBullets; i++)
@@ -71,7 +77,14 @@ public class BulletSpawner : MonoBehaviour
             b.rotation = rotations[i];
             b.speed = bulletSpeed;
             b.velocity = bulletVelocity;
+            if (spawnerType == SpawnerType.Spin)
+            {
+                minRotation += 10;
+                //maxRotation += 1;
+                b.rotation  += minRotation;
+            }
         }
+        
         return spawnedBullets;
     }
 }
