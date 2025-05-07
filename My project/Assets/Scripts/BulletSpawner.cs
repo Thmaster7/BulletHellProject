@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BulletSpawner : MonoBehaviour
@@ -8,10 +9,10 @@ public class BulletSpawner : MonoBehaviour
     public int numberOfBullets;
     public bool isRandom;
 
-    enum SpawnerType {Normal, Spin}
+    enum SpawnerType {Normal, Spin, Invspin}
 
     [SerializeField] private SpawnerType spawnerType;
-
+    public float timeDestroy;
     public float cooldown;
     float timer;
     public float bulletSpeed;
@@ -27,6 +28,7 @@ public class BulletSpawner : MonoBehaviour
         {
             DistributedRotations();
         }
+        
     }
 
     // Update is called once per frame
@@ -34,6 +36,7 @@ public class BulletSpawner : MonoBehaviour
     {
         if(timer <= 0)
         {
+            
             SpawnBullets();
             timer = cooldown;
         }
@@ -77,12 +80,41 @@ public class BulletSpawner : MonoBehaviour
             b.rotation = rotations[i];
             b.speed = bulletSpeed;
             b.velocity = bulletVelocity;
+            
             if (spawnerType == SpawnerType.Spin)
             {
                 minRotation += 10;
-                //maxRotation += 1;
+                numberOfBullets = 1;
                 b.rotation  += minRotation;
             }
+            
+            if (spawnerType == SpawnerType.Invspin)
+            {
+                
+                {
+                    
+                    minRotation += 10;
+                    numberOfBullets = 1;
+                    b.rotation -= minRotation;
+                }
+            }
+            if(b.transform.position.x >= 10f || b.transform.position.y >= 5f)
+            {
+                Destroy(spawnedBullets[i].GetComponent<Bullet>());
+                
+
+            }
+            if (spawnerType == SpawnerType.Normal)
+            {
+
+                {
+
+                    minRotation = 1;
+                    numberOfBullets = 8;
+                    
+                }
+            }
+
         }
         
         return spawnedBullets;
