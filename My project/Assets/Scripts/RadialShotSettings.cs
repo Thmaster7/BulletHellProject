@@ -5,15 +5,8 @@ public class RadialShotSettings
     public int numberOfBullets = 5;
     public float bulletSpeed = 10f;
     public float cooldownAfterShot;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [Range(-1f, 1f)] public float PhaseOffset = 0f;
+    [Range(-180f, 180f)] public float AngleOffset = 0f;
+
 }
