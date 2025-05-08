@@ -1,20 +1,30 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public Vector2 velocity;
-    public float speed;
-    public float rotation;
+    private const float MAX_LIFE_TIME = 3f;
+    private float _lifeTime = 0f;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        transform.rotation = Quaternion.Euler(0, 0, rotation);
-    }
+    public Vector2 velocity;
+    
+
+    
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(velocity * speed * Time.deltaTime);
+        transform.position += (Vector3)velocity * Time.deltaTime;
+        _lifeTime += Time.deltaTime;
+
+        if(_lifeTime > MAX_LIFE_TIME)
+        {
+            Disable();
+        }
+    }
+    private void Disable()
+    {
+        _lifeTime = 0f;
+        gameObject.SetActive(false);
     }
 }
